@@ -1,0 +1,16 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  -docker build -t gmbroth/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run gmbroth/react-test npm test -- --coverage
+
+after_success:
+  - docker build -t gmbroth/multi-client ./client
+  - docker build -t gmbroth/multi-nginx ./nginx
+  - docker build -t gmbroth/multi-multi-server  ./server
+  - docker build -t gmbroth/multi-worker ./worker
+
