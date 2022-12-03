@@ -11,8 +11,15 @@ script:
 
 after_success:
   - docker build -t gmbroth/multi-client ./client
-  - docker build -t gmbroth/multi-nginx ./nginx
-  - docker build -t gmbroth/multi-server  ./server
+  - docker build -t gmbroth/multi-nginx  ./nginx
+  - docker build -t gmbroth/multi-server ./server
   - docker build -t gmbroth/multi-worker ./worker
-  # Take those images and push them to docker hub
 
+  # Log in to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+
+  # Take those images and push them to docker hub
+  - docker push gmbroth/multi-client 
+  - docker push gmbroth/multi-nginx
+  - docker push gmbroth/multi-server
+  - docker push gmbroth/multi-worker
