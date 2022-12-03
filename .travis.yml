@@ -14,4 +14,5 @@ after_success:
   - docker build -t gmbroth/multi-nginx ./nginx
   - docker build -t gmbroth/multi-server  ./server
   - docker build -t gmbroth/multi-worker ./worker
+  # Take those images and push them to docker hub
 
